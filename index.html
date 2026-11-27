@@ -499,15 +499,6 @@
 
       select.innerHTML = `<option value="">-- Pilih Nama Guru / Pegawai --</option>` +
         employeeList.map((emp, idx) => `<option value="${idx}">${emp.nama}</option>`).join("");
-
-      const savedName = localStorage.getItem("selaras_selected_name");
-      if (savedName) {
-        const foundIdx = employeeList.findIndex(e => e.nama === savedName);
-        if (foundIdx !== -1) {
-          select.value = foundIdx;
-          handleEmployeeChange();
-        }
-      }
     }
 
     function handleEmployeeChange() {
@@ -516,6 +507,8 @@
         document.getElementById("nip").value = "";
         document.getElementById("jabatan").value = "";
         document.getElementById("email").value = "";
+        const welcomeEl = document.getElementById("welcomeName");
+        if (welcomeEl) welcomeEl.innerText = "Pegawai / Guru";
         return;
       }
 
@@ -527,8 +520,6 @@
         
         const welcomeEl = document.getElementById("welcomeName");
         if (welcomeEl) welcomeEl.innerText = emp.nama;
-        
-        localStorage.setItem("selaras_selected_name", emp.nama);
       }
     }
 
