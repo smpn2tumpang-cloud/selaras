@@ -4,12 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>SELARAS | Sistem Elektronik Laporan Perjalanan Dinas Terarah & Sistematis</title>
-  <!-- Favicon & Ikon Layar Utama HP -->
   <link rel="icon" type="image/png" href="logo-selaras.png" />
   <link rel="apple-touch-icon" href="logo-selaras.png" />
 
+  <!-- Wajib ada untuk tampilan UI & Diagram -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Library Export Excel (SheetJS) & PDF (jsPDF + AutoTable) -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
@@ -341,7 +343,7 @@
         </form>
       </section>
 
-      <!-- TAB 3: REKAPITULASI & EXPORT -->
+      <!-- TAB 3: REKAPITULASI, PAGINASI & EXPORT -->
       <section id="viewRekap" class="hidden space-y-3 mb-6 fade-in">
         <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 space-y-3">
           <div class="flex justify-between items-center">
@@ -363,7 +365,11 @@
           <input type="text" id="searchInput" onkeyup="filterHistory()" placeholder="Cari nama pegawai, acara, nomor SPT, atau tujuan..." class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-platinum-100 border border-slate-300 focus:outline-none focus:border-copper-500" />
         </div>
 
+        <!-- Daftar Kartu Rekap (Maksimal 10 per halaman) -->
         <div id="fullHistoryList" class="space-y-2.5"></div>
+
+        <!-- Kontrol Paginasi -->
+        <div id="rekapPagination" class="hidden bg-white p-3 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between gap-2"></div>
       </section>
 
       <!-- TAB 4: TENTANG APLIKASI -->
@@ -438,13 +444,15 @@
 
   <script>
     // GANTI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzCewD1e3dmKYFWUkXIW_myzqLxfTaqoG2OiWB4LKJcnrfPCeYfQJQvRM5pUB9a3_E9/exec";
+    const APPS_SCRIPT_URL = "TEMPEL_URL_WEB_APP_APPS_SCRIPT_DISINI";
 
     let fileData = { foto: null, spt: null, resume: null };
     let employeeList = [];
     let allRecords = [];
     let filteredRecords = [];
     let currentRekapList = [];
+    let currentRekapPage = 1;
+    const ITEMS_PER_PAGE = 10;
     let chartInstance = null;
     let activeChartType = "bar";
 
@@ -695,9 +703,9 @@
           populateEmployeeDropdown(json.employees || []);
           allRecords = json.data || [];
           currentRekapList = [...allRecords];
+          currentRekapPage = 1;
           applyDashboardFilter();
-          renderCards(currentRekapList, "fullHistoryList");
-          document.getElementById("rekapCountBadge").innerText = `${currentRekapList.length} Data`;
+          renderRekapPage();
         }
       } catch (err) {
         console.error(err);
@@ -895,8 +903,73 @@
         (r.tempat && r.tempat.toLowerCase().includes(q)) ||
         (r.nomorSpt && String(r.nomorSpt).toLowerCase().includes(q))
       );
-      document.getElementById("rekapCountBadge").innerText = `${currentRekapList.length} Data`;
-      renderCards(currentRekapList, "fullHistoryList");
+      currentRekapPage = 1;
+      renderRekapPage();
+    }
+
+    function renderRekapPage() {
+      const totalItems = currentRekapList.length;
+      const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
+      if (currentRekapPage > totalPages) currentRekapPage = totalPages;
+
+      const startIdx = (currentRekapPage - 1) * ITEMS_PER_PAGE;
+      const endIdx = Math.min(startIdx + ITEMS_PER_PAGE, totalItems);
+      const pageItems = currentRekapList.slice(startIdx, endIdx);
+
+      document.getElementById("rekapCountBadge").innerText = `${totalItems} Data`;
+      renderCards(pageItems, "fullHistoryList");
+
+      const pagContainer = document.getElementById("rekapPagination");
+      if (totalItems <= ITEMS_PER_PAGE) {
+        pagContainer.classList.add("hidden");
+        pagContainer.innerHTML = "";
+        return;
+      }
+
+      pagContainer.classList.remove("hidden");
+
+      let pageButtons = "";
+      let startPage = Math.max(1, currentRekapPage - 2);
+      let endPage = Math.min(totalPages, startPage + 4);
+      if (endPage - startPage < 4) {
+        startPage = Math.max(1, endPage - 4);
+      }
+
+      for (let p = startPage; p <= endPage; p++) {
+        const activeClass = p === currentRekapPage
+          ? "bg-titanium-900 text-copper-400 font-bold border-titanium-900"
+          : "bg-platinum-100 text-slate-600 hover:bg-slate-200 border-slate-200";
+        pageButtons += `
+          <button onclick="changeRekapPage(${p})" class="w-7 h-7 rounded-lg text-[11px] border transition ${activeClass}">
+            ${p}
+          </button>
+        `;
+      }
+
+      pagContainer.innerHTML = `
+        <div class="text-[10.5px] text-slate-500 font-medium">
+          Menampilkan <strong class="text-titanium-900">${startIdx + 1}–${endIdx}</strong> dari <strong class="text-titanium-900">${totalItems}</strong>
+        </div>
+        <div class="flex items-center gap-1">
+          <button onclick="changeRekapPage(${currentRekapPage - 1})" ${currentRekapPage === 1 ? "disabled" : ""}
+            class="px-2 py-1.5 rounded-lg text-[11px] font-bold bg-platinum-100 text-titanium-900 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-200 transition">
+            &lsaquo;
+          </button>
+          ${pageButtons}
+          <button onclick="changeRekapPage(${currentRekapPage + 1})" ${currentRekapPage === totalPages ? "disabled" : ""}
+            class="px-2 py-1.5 rounded-lg text-[11px] font-bold bg-platinum-100 text-titanium-900 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-200 transition">
+            &rsaquo;
+          </button>
+        </div>
+      `;
+    }
+
+    function changeRekapPage(page) {
+      const totalPages = Math.max(1, Math.ceil(currentRekapList.length / ITEMS_PER_PAGE));
+      if (page < 1 || page > totalPages) return;
+      currentRekapPage = page;
+      renderRekapPage();
+      document.getElementById("viewRekap").scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     function exportToExcel() {
