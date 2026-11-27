@@ -4,9 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>SELARAS | Sistem Elektronik Laporan Perjalanan Dinas Terarah & Sistematis</title>
+  <!-- Favicon & Ikon Layar Utama HP -->
+  <link rel="icon" type="image/png" href="logo-selaras.png" />
+  <link rel="apple-touch-icon" href="logo-selaras.png" />
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- Library Export Excel (SheetJS) & PDF (jsPDF + AutoTable) -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
@@ -35,24 +38,23 @@
 </head>
 <body class="text-slate-800 pb-24">
 
-  <!-- App Container -->
   <div class="max-w-lg mx-auto min-h-screen bg-platinum-100 shadow-2xl relative flex flex-col">
 
-    <!-- Top Header (Matte Carbon & Burnished Copper) -->
+    <!-- Top Header -->
     <header class="bg-gradient-to-br from-titanium-900 via-titanium-800 to-titanium-900 text-white px-5 pt-6 pb-8 rounded-b-[2rem] shadow-lg relative overflow-hidden border-b-2 border-copper-500/60">
-      <!-- Dekorasi Latar -->
       <div class="absolute -right-10 -top-10 w-40 h-40 bg-copper-500/15 rounded-full blur-2xl pointer-events-none"></div>
       <div class="absolute -left-10 bottom-0 w-32 h-32 bg-slate-400/10 rounded-full blur-xl pointer-events-none"></div>
 
       <div class="flex justify-between items-start gap-2 relative z-10">
         <div class="flex items-start gap-3">
-          <div class="w-11 h-11 shrink-0 rounded-2xl bg-gradient-to-br from-copper-400 to-copper-600 text-white flex items-center justify-center font-extrabold text-xl shadow-md border border-white/20">
-            SL
+          <!-- Logo Gambar Aplikasi SELARAS -->
+          <div class="w-12 h-12 shrink-0 rounded-2xl bg-white/95 p-1.5 flex items-center justify-center shadow-md border border-copper-400/50">
+            <img src="logo-selaras.png" alt="Logo SELARAS" class="w-full h-full object-contain" />
           </div>
           <div>
             <div class="flex items-center gap-2">
               <h1 class="font-extrabold text-lg tracking-wider text-copper-400 leading-none">SELARAS</h1>
-              <span class="text-[10px] bg-white/10 text-copper-300 px-2 py-0.5 rounded-full font-semibold border border-white/10">Titanium</span>
+              <span class="text-[10px] bg-white/10 text-copper-300 px-2 py-0.5 rounded-full font-semibold border border-white/10">v3.0</span>
             </div>
             <p class="text-[11px] text-slate-300 leading-snug mt-1">
               Sistem Elektronik Laporan Perjalanan Dinas Terarah &amp; Sistematis
@@ -80,12 +82,9 @@
     <!-- MAIN CONTENT AREA -->
     <main class="flex-1 px-4 -mt-4 relative z-20">
 
-      <!-- ========================================================= -->
-      <!-- TAB 1: DASHBOARD STATISTIK LENGKAP                        -->
-      <!-- ========================================================= -->
+      <!-- TAB 1: DASHBOARD -->
       <section id="viewHome" class="space-y-4 fade-in">
-
-        <!-- Panel Filter Tanggal Interaktif -->
+        <!-- Panel Filter Tanggal -->
         <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200/90">
           <div class="flex justify-between items-center mb-2.5">
             <span class="text-xs font-bold text-titanium-900 flex items-center gap-1.5">
@@ -137,7 +136,7 @@
           </div>
         </div>
 
-        <!-- Diagram Statistik Interaktif (Bar & Doughnut) -->
+        <!-- Diagram Statistik Interaktif -->
         <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200/90 space-y-4">
           <div class="flex justify-between items-center">
             <div>
@@ -155,10 +154,10 @@
           </div>
         </div>
 
-        <!-- Ringkasan Tentang Aplikasi SELARAS di Dashboard -->
+        <!-- Ringkasan Tentang Aplikasi -->
         <div class="bg-gradient-to-r from-titanium-900 to-titanium-800 text-white p-4 rounded-2xl shadow-sm flex items-start gap-3 border-l-4 border-copper-500">
-          <div class="w-9 h-9 rounded-xl bg-copper-500/20 text-copper-400 flex items-center justify-center shrink-0 mt-0.5 border border-copper-400/20">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          <div class="w-10 h-10 rounded-xl bg-white/95 p-1 flex items-center justify-center shrink-0 mt-0.5">
+            <img src="logo-selaras.png" alt="Logo SELARAS" class="w-full h-full object-contain" />
           </div>
           <div class="flex-1">
             <h4 class="font-bold text-xs text-copper-400">Tentang Aplikasi SELARAS</h4>
@@ -171,7 +170,7 @@
           </div>
         </div>
 
-        <!-- Daftar Laporan Terbaru Sesuai Filter -->
+        <!-- Daftar Laporan Terbaru -->
         <div class="pt-1">
           <div class="flex justify-between items-center mb-2.5">
             <h3 class="font-bold text-xs text-titanium-900">Laporan pada Periode Terpilih</h3>
@@ -185,9 +184,7 @@
         </div>
       </section>
 
-      <!-- ========================================================= -->
-      <!-- TAB 2: FORM MULTI-STEP WIZARD (DROPDOWN + RESUME OPSIONAL)-->
-      <!-- ========================================================= -->
+      <!-- TAB 2: FORM MULTI-STEP WIZARD -->
       <section id="viewForm" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-4 mb-6 fade-in">
         <div class="mb-5">
           <div class="flex justify-between text-xs font-bold text-titanium-900 mb-1.5">
@@ -321,7 +318,7 @@
               <p id="sptInfo" class="text-[11px] text-emerald-600 font-medium mt-1 hidden"></p>
             </div>
 
-            <!-- RESUME KEGIATAN / NOTULA (OPSIONAL - TIDAK WAJIB) -->
+            <!-- RESUME KEGIATAN / NOTULA (OPSIONAL) -->
             <div class="p-3.5 rounded-xl border border-slate-300 bg-slate-50">
               <div class="flex justify-between items-center mb-1">
                 <label class="block text-xs font-bold text-titanium-900">3. Resume Kegiatan / Notula (PDF / Word)</label>
@@ -344,9 +341,7 @@
         </form>
       </section>
 
-      <!-- ========================================================= -->
-      <!-- TAB 3: REKAPITULASI, PENCARIAN & EXPORT PDF/EXCEL         -->
-      <!-- ========================================================= -->
+      <!-- TAB 3: REKAPITULASI & EXPORT -->
       <section id="viewRekap" class="hidden space-y-3 mb-6 fade-in">
         <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 space-y-3">
           <div class="flex justify-between items-center">
@@ -354,7 +349,6 @@
             <span id="rekapCountBadge" class="text-[10px] font-bold bg-titanium-900 text-copper-400 px-2.5 py-0.5 rounded-full">0 Data</span>
           </div>
 
-          <!-- Tombol Export PDF & Excel -->
           <div class="grid grid-cols-2 gap-2">
             <button onclick="exportToExcel()" class="bg-emerald-700 hover:bg-emerald-800 active:scale-95 transition text-white font-bold text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 shadow-sm">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
@@ -372,14 +366,12 @@
         <div id="fullHistoryList" class="space-y-2.5"></div>
       </section>
 
-      <!-- ========================================================= -->
-      <!-- TAB 4: TENTANG APLIKASI SELARAS & PANDUAN                 -->
-      <!-- ========================================================= -->
+      <!-- TAB 4: TENTANG APLIKASI -->
       <section id="viewInfo" class="hidden space-y-4 mb-6 fade-in">
         <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-3">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-titanium-900 text-copper-400 flex items-center justify-center font-extrabold text-xl border-2 border-copper-500">
-              SL
+          <div class="flex items-center gap-3.5">
+            <div class="w-14 h-14 shrink-0 rounded-2xl bg-platinum-100 p-2 flex items-center justify-center border border-copper-400/40 shadow-sm">
+              <img src="logo-selaras.png" alt="Logo SELARAS" class="w-full h-full object-contain" />
             </div>
             <div>
               <h3 class="font-extrabold text-base text-titanium-900">SELARAS</h3>
@@ -419,7 +411,7 @@
       <p class="text-xs text-slate-300 mt-1">Menyimpan berkas ke Google Drive &amp; Spreadsheet</p>
     </div>
 
-    <!-- Bottom Navigation Bar (4 Menu) -->
+    <!-- Bottom Navigation Bar -->
     <nav class="fixed bottom-0 left-0 right-0 max-w-lg mx-auto bg-titanium-900 border-t border-titanium-700 px-4 py-2 flex justify-around items-center z-40 shadow-[0_-4px_12px_rgba(0,0,0,0.15)]">
       <button onclick="switchTab('home')" id="navHome" class="flex flex-col items-center text-copper-400 font-bold text-[10px] gap-1 w-16">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
@@ -477,7 +469,6 @@
       if (tab === "form") goStep(1);
     }
 
-    // POPULATE DROPDOWN PEGAWAI & AUTO-FILL
     function populateEmployeeDropdown(employees) {
       employeeList = employees || [];
       const select = document.getElementById("namaSelect");
@@ -554,7 +545,6 @@
       document.getElementById("stepBar").style.width = titles[step][1];
     }
 
-    // KOMPRESI FOTO OTOMATIS < 1 MB
     function handleImageUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -663,7 +653,7 @@
         penyelenggara: document.getElementById("penyelenggara").value.trim(),
         fileFoto: fileData.foto,
         fileSpt: fileData.spt,
-        fileResume: fileData.resume // Opsional (boleh null)
+        fileResume: fileData.resume
       };
 
       document.getElementById("loadingOverlay").classList.remove("hidden");
@@ -693,7 +683,6 @@
       }
     }
 
-    // AMBIL DATA LAPORAN & MASTER PEGAWAI
     async function fetchHistory() {
       if (APPS_SCRIPT_URL.includes("TEMPEL_URL")) {
         renderChart([]);
@@ -818,7 +807,7 @@
             datasets: [{
               label: "Jumlah Perjalanan Dinas",
               data: values,
-              backgroundColor: "#C26D38", // Burnished Copper
+              backgroundColor: "#C26D38",
               borderRadius: 8,
               maxBarThickness: 36
             }]
@@ -910,7 +899,6 @@
       renderCards(currentRekapList, "fullHistoryList");
     }
 
-    // EXPORT EXCEL (.xlsx)
     function exportToExcel() {
       if (!currentRekapList.length) {
         alert("Tidak ada data untuk diekspor.");
@@ -945,7 +933,6 @@
       XLSX.writeFile(workbook, fileName);
     }
 
-    // EXPORT PDF (.pdf)
     function exportToPDF() {
       if (!currentRekapList.length) {
         alert("Tidak ada data untuk diekspor.");
@@ -955,9 +942,9 @@
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
 
-      doc.setFillColor(24, 28, 36); // Matte Carbon
+      doc.setFillColor(24, 28, 36);
       doc.rect(0, 0, 297, 24, "F");
-      doc.setTextColor(217, 130, 75); // Burnished Copper
+      doc.setTextColor(217, 130, 75);
       doc.setFontSize(14);
       doc.setFont("helvetica", "bold");
       doc.text("SELARAS - REKAPITULASI LAPORAN PERJALANAN DINAS", 14, 11);
